@@ -12,8 +12,9 @@
 
 .postbox-container {
     display: block;
-    width: 280px;
-    float: right;
+    float: left;
+    margin-top: 40px;
+    margin-left: 20px;
 }
 
 .panel-body {
