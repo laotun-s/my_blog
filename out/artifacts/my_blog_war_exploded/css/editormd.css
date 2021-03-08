@@ -1,0 +1,23 @@
+.edit-content {
+    display: block;
+    padding-top: 50px;
+}
+
+.post-content {
+    width: 65%;
+    min-width: 763px;
+    margin-left: 130px;
+    float: left;
+}
+
+.postbox-container {
+    display: block;
+    width: 280px;
+    float: right;
+}
+
+.panel-body {
+    display: block;
+    margin-top: 30px;
+    height: 550px;
+}
