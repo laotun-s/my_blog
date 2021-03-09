@@ -14,6 +14,10 @@
         <result column="post_classify" property="postClassify"/>
         <result column="post_click" property="postClick"/>
     </resultMap>
+    <insert id="saveContent" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_content(post_author, post_date, post_modified, post_content, post_content_filtered, post_title, post_name, guid,post_classify)
+        values(#{postAuthor}, now(), now(), #{postContent}, #{postContentFiltered}, #{postTitle}, #{postName}, #{guid}, #{postClassify})
+    </insert>
 
     <select id="showContent" resultMap="BlogContentResult">
         select * from blog_content;

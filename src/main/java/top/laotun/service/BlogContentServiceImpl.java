@@ -5,6 +5,7 @@ import top.laotun.mapper.BlogContentMapper;
 import top.laotun.pojo.BlogContent;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class BlogContentServiceImpl implements BlogContentService{
     private BlogContentMapper blogContentMapper;
@@ -15,6 +16,10 @@ public class BlogContentServiceImpl implements BlogContentService{
 
     public ArrayList<BlogContent> showContent() {
         return blogContentMapper.showContent();
+    }
+
+    public int saveContent(Map<String, Object> map) {
+        return blogContentMapper.saveContent(map);
     }
 
 }

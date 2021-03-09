@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.laotun.Utils.JsonUtils;
 import top.laotun.pojo.BlogContent;
 import top.laotun.pojo.BlogUser;
 import top.laotun.service.BlogContentService;
@@ -31,18 +32,14 @@ public class BlogUserController {
         map.put("login", login);
         map.put("pwd", pwd);
         BlogUser user = blogUserService.login(map);
-        ObjectMapper mapper = new ObjectMapper();
 
         if (user.toString() != null){
             Cookie cookie = new Cookie("user_key",user.getUserName() + "-" + "key");
             cookie.setPath("/");
             cookie.setMaxAge(60*2);
             response.addCookie(cookie);
-            try {
-                return mapper.writeValueAsString("ok");
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+
+            return JsonUtils.getJson("ok");
         }
         return null;
     }

@@ -9,8 +9,8 @@
 
     <context:component-scan base-package="top.laotun.service"/>
 
-    <bean id="BlogContextServiceImpl" class="top.laotun.service.BlogContextServiceImpl">
-        <property name="blogContextMapper" ref="blogContextMapper"/>
+    <bean id="BlogContentServiceImpl" class="top.laotun.service.BlogContentServiceImpl">
+        <property name="blogContentMapper" ref="blogContentMapper"/>
     </bean>
 
     <bean id="BlogUserServiceImpl" class="top.laotun.service.BlogUserServiceImpl">

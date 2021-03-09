@@ -2,14 +2,22 @@ package top.laotun.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import top.laotun.Utils.JsonUtils;
 import top.laotun.pojo.BlogContent;
 import top.laotun.service.BlogContentService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+@RestController
 public class BlogContenController {
     @Autowired
     @Qualifier("BlogContentServiceImpl")
@@ -36,5 +44,22 @@ public class BlogContenController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @PostMapping("/editormd")
+    public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("postContent", postContent);
+        map.put("postContentFiltered", postContentFiltered);
+        map.put("postTitle", postTitle);
+        map.put("postName", URLEncoder.encode(postTitle));
+        map.put("postAuthor", 1);
+        map.put("postClassify", "test");
+
+        map.put("guid", url);
+
+        blogContentService.saveContent(map);
+        System.out.println(map.get("id"));
+        return JsonUtils.getJson("ok");
     }
 }

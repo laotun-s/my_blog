@@ -22,7 +22,7 @@
             <div class="page-header">
                 <h1><label>撰写新文章</label></h1>
                 <div>
-                    <input type="text" name="title" required lay-verify="required" placeholder="添加标题" autocomplete="off" class="layui-input title">
+                    <input type="text" id="title" required lay-verify="required" placeholder="添加标题" autocomplete="off" class="layui-input title">
                 </div>
             </div>
             <div class="panel-body">
@@ -47,11 +47,30 @@
     layui.use('form', function(){
         let form = layui.form;
         form.on('submit(postContent)', function(data){
-            if (!$('.title').val()) {
+            if (!$('#title').val()) {
                 layer.msg("请输入标题",{icon: 2,});
+            } else {
+                $.ajax({
+                    url:"/editormd",
+                    type:"POST",
+                    xhrFields: {
+                        withCredentials: true,
+                    },
+                    dataType:"json",
+                    data:{
+                        "url": location.host,
+                        "postContent": editor.getHTML(),
+                        "postContentFiltered": editor.getMarkdown(),
+                        "postTitle": $('#title').val()
+                    },
+                    success:function (result) {
+
+                    },
+                    error:function () {
+                        console.log("error");
+                    }
+                });
             }
-            console.log(editor.getMarkdown());
-            console.log(editor.getHTML());
         });
         let editor = editormd("blog_mdedit", {
             placeholder : '欢迎使用laotun博客',
