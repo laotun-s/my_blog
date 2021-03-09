@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class BlogContentServiceImpl implements BlogContentService{
     private BlogContentMapper blogContentMapper;
 
-    public void setBlogContextMapper(BlogContentMapper blogContentMapper) {
+    public void setBlogContentMapper(BlogContentMapper blogContentMapper) {
         this.blogContentMapper = blogContentMapper;
     }
 
