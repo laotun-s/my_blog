@@ -2,7 +2,7 @@ layui.use('form', function(){
     let form = layui.form;
     //监听提交
     form.on('submit(login)', function(data){
-        var index = layer.load(2, {time: 10*1000});
+        var index = layer.load(2, {time: 20*1000});
         $.ajax({
             url:"/login",
             type:"POST",
