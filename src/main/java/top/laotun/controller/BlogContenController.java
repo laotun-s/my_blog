@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.laotun.Utils.JsonUtils;
@@ -61,5 +63,11 @@ public class BlogContenController {
         blogContentService.saveContent(map);
         System.out.println(map.get("id"));
         return JsonUtils.getJson("ok");
+    }
+
+    @GetMapping("/{p}")
+    public String content(@PathVariable("p") int id){
+        ArrayList<BlogContent> blogContents = blogContentService.showContent(id);
+        return blogContents.get(0).getPostContent();
     }
 }

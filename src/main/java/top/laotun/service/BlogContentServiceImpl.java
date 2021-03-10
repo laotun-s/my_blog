@@ -18,6 +18,10 @@ public class BlogContentServiceImpl implements BlogContentService{
         return blogContentMapper.showContent();
     }
 
+    public ArrayList<BlogContent> showContent(int id){
+        return blogContentMapper.showContent(id);
+    }
+
     public int saveContent(Map<String, Object> map) {
         return blogContentMapper.saveContent(map);
     }

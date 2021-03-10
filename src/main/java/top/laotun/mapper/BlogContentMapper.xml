@@ -18,9 +18,23 @@
         insert into blog_content(post_author, post_date, post_modified, post_content, post_content_filtered, post_title, post_name, guid,post_classify)
         values(#{postAuthor}, now(), now(), #{postContent}, #{postContentFiltered}, #{postTitle}, #{postName}, #{guid}, #{postClassify})
     </insert>
+    <update id="updateContent">
+        update my_blog
+        <set>
+            <if test="postContent != null">post_content=#{postContent}</if>
+            <if test="postContentFiltered != null">post_content_filtered=#{postContentFiltered}</if>
+            <if test="postTitle != null">post_title=#{postTitle}</if>
+            <if test="postName != null">post_name=#{postName}</if>
+            <if test="guid != null">guid=#{guid}</if>
+            <if test="postClassify != null">post_classify=#{postClassify}</if>
+            post_modified=now()
+        </set>
+        where id=#{id}
+    </update>
 
     <select id="showContent" resultMap="BlogContentResult">
-        select * from blog_content;
+        select * from blog_content
+        <if test="id != null">where id=#{id}</if>
     </select>
 
 </mapper>
