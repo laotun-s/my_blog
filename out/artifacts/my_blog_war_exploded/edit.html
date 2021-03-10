@@ -50,6 +50,7 @@
             if (!$('#title').val()) {
                 layer.msg("请输入标题",{icon: 2,});
             } else {
+                layer.load(2, {time: 20*1000});
                 $.ajax({
                     url:"/editormd",
                     type:"POST",
@@ -64,10 +65,11 @@
                         "postTitle": $('#title').val()
                     },
                     success:function (result) {
-
+                        console.log(111111111)
+                        window.location.href = "/index.html";
                     },
                     error:function () {
-                        console.log("error");
+                        layer.msg("error",{icon: 2,});
                     }
                 });
             }

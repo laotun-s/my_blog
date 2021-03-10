@@ -26,6 +26,13 @@ public class BlogUserController {
     @Qualifier("BlogUserServiceImpl")
     private BlogUserService blogUserService;
 
+    /**
+     * 登陆处理
+     * @param login
+     * @param pwd
+     * @param response
+     * @return
+     */
     @PostMapping("/login")
     public String login(@Param("login") String login, @Param("pwd") String pwd, HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();

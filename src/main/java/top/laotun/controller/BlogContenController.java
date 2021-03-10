@@ -25,6 +25,10 @@ public class BlogContenController {
     @Qualifier("BlogContentServiceImpl")
     private BlogContentService blogContentService;
 
+    /**
+     * 首页获取文章
+     * @return
+     */
     @PostMapping("/content")
     public String showContent(){
 
@@ -48,6 +52,15 @@ public class BlogContenController {
         return null;
     }
 
+    /**
+     * 写文章
+     * @param request
+     * @param postContent
+     * @param postContentFiltered
+     * @param postTitle
+     * @param url
+     * @return
+     */
     @PostMapping("/editormd")
     public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url){
         Map<String, Object> map = new HashMap<String, Object>();
