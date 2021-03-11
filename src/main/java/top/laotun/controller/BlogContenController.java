@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.laotun.Utils.JsonUtils;
 import top.laotun.pojo.BlogContent;
 import top.laotun.service.BlogContentService;
@@ -91,13 +88,20 @@ public class BlogContenController {
     }
 
     /**
-     * 获取文章
+     * 跳转到文章页面
      * @param id
      * @return
      */
-    @GetMapping("/{p}")
+    /*@GetMapping("/content.html/{p}")
     public String content(@PathVariable("p") int id){
         ArrayList<BlogContent> blogContents = blogContentService.showContent(id);
-        return blogContents.get(0).getPostContent();
+
+        return JsonUtils.getJson(blogContents.get(0));
+    }*/
+
+    @GetMapping("/content.html")
+    public String content(@RequestParam("id") Integer id){
+        System.out.println("11111111111111111111");
+        return id + "";
     }
 }
