@@ -19,14 +19,14 @@
         values(#{postAuthor}, now(), now(), #{postContent}, #{postContentFiltered}, #{postTitle}, #{postName}, #{guid}, #{postClassify})
     </insert>
     <update id="updateContent">
-        update my_blog
+        update blog_content
         <set>
-            <if test="postContent != null">post_content=#{postContent}</if>
-            <if test="postContentFiltered != null">post_content_filtered=#{postContentFiltered}</if>
-            <if test="postTitle != null">post_title=#{postTitle}</if>
-            <if test="postName != null">post_name=#{postName}</if>
-            <if test="guid != null">guid=#{guid}</if>
-            <if test="postClassify != null">post_classify=#{postClassify}</if>
+            <if test="postContent != null">post_content=#{postContent},</if>
+            <if test="postContentFiltered != null">post_content_filtered=#{postContentFiltered},</if>
+            <if test="postTitle != null">post_title=#{postTitle},</if>
+            <if test="postName != null">post_name=#{postName},</if>
+            <if test="guid != null">guid=#{guid},</if>
+            <if test="postClassify != null">post_classify=#{postClassify},</if>
             post_modified=now()
         </set>
         where id=#{id}

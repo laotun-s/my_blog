@@ -26,4 +26,8 @@ public class BlogContentServiceImpl implements BlogContentService{
         return blogContentMapper.saveContent(map);
     }
 
+    public int updateContent(Map<String, Object> map) {
+        return blogContentMapper.updateContent(map);
+    }
+
 }

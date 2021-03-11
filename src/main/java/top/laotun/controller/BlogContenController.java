@@ -14,6 +14,7 @@ import top.laotun.pojo.BlogContent;
 import top.laotun.service.BlogContentService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,17 +68,33 @@ public class BlogContenController {
         map.put("postContent", postContent);
         map.put("postContentFiltered", postContentFiltered);
         map.put("postTitle", postTitle);
-        map.put("postName", URLEncoder.encode(postTitle));
+        try {
+            map.put("postName", URLEncoder.encode(postTitle, "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         map.put("postAuthor", 1);
         map.put("postClassify", "test");
 
         map.put("guid", url);
 
         blogContentService.saveContent(map);
-        System.out.println(map.get("id"));
+
+        Object id = map.get("id");
+        url = "http://" + url + "/" + id;
+        map.clear();
+        map.put("guid", url);
+        map.put("id", id);
+        blogContentService.updateContent(map);
+
         return JsonUtils.getJson("ok");
     }
 
+    /**
+     * 获取文章
+     * @param id
+     * @return
+     */
     @GetMapping("/{p}")
     public String content(@PathVariable("p") int id){
         ArrayList<BlogContent> blogContents = blogContentService.showContent(id);
