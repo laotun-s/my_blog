@@ -37,9 +37,9 @@
     <!--视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
         <!--前缀-->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <!--后缀-->
-        <property name="suffix" value=".jsp"/>
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>
+        &lt;!&ndash;后缀&ndash;&gt;
+        <property name="suffix" value=".jsp"/>-->
     </bean>
 
     <!--声明式事务-->

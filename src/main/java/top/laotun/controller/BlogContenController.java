@@ -1,7 +1,5 @@
 package top.laotun.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,13 +39,7 @@ public class BlogContenController {
             }
         }
 
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(contents);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return JsonUtils.getJson(contents);
     }
 
     /**
@@ -78,7 +70,7 @@ public class BlogContenController {
         blogContentService.saveContent(map);
 
         Object id = map.get("id");
-        url = "http://" + url + "/" + id;
+        url = "http://" + url + "/content.html/?id=" + id;
         map.clear();
         map.put("guid", url);
         map.put("id", id);
@@ -88,20 +80,14 @@ public class BlogContenController {
     }
 
     /**
-     * 跳转到文章页面
+     * 获取文章内容
      * @param id
      * @return
      */
-    /*@GetMapping("/content.html/{p}")
-    public String content(@PathVariable("p") int id){
+    @PostMapping("/p/{id}")
+    public String content(@PathVariable("id") int id){
         ArrayList<BlogContent> blogContents = blogContentService.showContent(id);
 
         return JsonUtils.getJson(blogContents.get(0));
-    }*/
-
-    @GetMapping("/content.html")
-    public String content(@RequestParam("id") Integer id){
-        System.out.println("11111111111111111111");
-        return id + "";
     }
 }
