@@ -1,9 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>首页</title>
+    <title></title>
 
     <link href="layui/css/layui.css" rel="stylesheet">
     <link href="css/home.css" rel="stylesheet">
@@ -12,12 +11,11 @@
     <script src="js/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/iconfont.js" type="text/javascript"></script>
 
-
 </head>
 <body>
 <div class="nav">
     <ul class="layui-nav" id="index-nav">
-        <li class="layui-nav-item layui-this" id="index"><a href="/index.html">首页</a></li>
+        <li class="layui-nav-item" id="index"><a href="/index.html">首页</a></li>
         <li class="layui-nav-item" id="Linux"><a href="/classify.html?page=Linux">Linux</a></li>
         <li class="layui-nav-item" id="CTF"><a href="/classify.html?page=CTF">CTF</a></li>
         <li class="layui-nav-item" id="note"><a href="/classify.html?page=笔记">笔记</a></li>
@@ -31,81 +29,74 @@
     </ul>
 </div>
 
-<div class="index-background">
-
-    <div class="index-user">
-        <div class="index-user-icon">
-            <a href="#">
-                <img src="icon/1.jpg">
-            </a>
-        </div>
-        <div class="index-user-signal">
-            <p>只要思想不滑坡，办法总比困难多</p>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md8 layui-col-md-offset2 content-div">
+            <div class="title">
+                <!--<br><br>
+                <h1>Web 归档 | 老吞</h1>-->
+            </div>
         </div>
     </div>
 </div>
-
 <div class="index-content">
     <div class="index-content-erea">
         <h1 class="index-content-style-head">Essay</h1>
         <ul id="index-Article">
 
         </ul>
-        <!--<div class="index-content-writings">
-            <div class="index-essay">
-                <div class="index-essay-writings">
-                    <div>
-                        <i class="layui-icon">
-                            &#xe68d;
-                            发布于
-                        </i>
-                    </div>
-                    <h2><a href="#">Web</a></h2>
-                    <i class="layui-icon">
-                        &#xe66f;
-                        laotun
-                    </i>
-                    <i class="layui-icon">
-                        &#xe715;
-                        <a href="#">linux</a>
-                    </i>
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-yanjing"></use>
-                    </svg>
-                    <span class="layui-icon">3000</span>
-                    <div class="index-content-summary">
-                        <span>常见的几个HTTP IP头 x-forwarded-for x-remote-IP x-originating-IP x-remo ...</span>
-                        <div class="index-content-more">
-                            <a href="#">
-                                <i class="layui-icon" style="font-size: 30px">
-                                    &#xe65f;
-                                </i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="index-content-background">
-                <a href="#"><img src="icon/web.jpg"></a>
-            </div>
-        </div>-->
-        <div style="height: 200px;"></div>
     </div>
 </div>
-
 
 <script>
     layui.use('element', function(){
         let element = layui.element;
 
+
+        function getQueryVariable(variable)
+        {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            if (vars.length > 1)
+                return false;
+            let pair = vars[0].split("=");
+            if(pair[0] == variable)
+                return pair[1];
+            return false;
+        }
+
+        let page = getQueryVariable("page");
+        page = decodeURI(page);
+        switch (page) {
+            case 'Linux':
+                let Linux = document.getElementById('Linux');
+                Linux.className += ' layui-this';
+                break;
+            case 'CTF':
+                let CTF = document.getElementById('CTF');
+                CTF.className += ' layui-this';
+                break;
+            case '笔记':
+                let note = document.getElementById('note');
+                note.className += ' layui-this';
+                break;
+            case '刷题':
+                let Brush = document.getElementById('Brush');
+                Brush.className += ' layui-this';
+                break;
+        }
+
         $.ajax({
-            url:"/content",
+            url:"/content/" + page,
             type:"POST",
             dataType:"json",
             xhrFields: {
                 withCredentials: true,
             },
             success:function (data) {
+                document.title = page + '  | 老吞';
+                let title = '<br><br><h1>' + page + ' 归档 | 老吞</h1>';
+                $('.title').append(title);
                 let html = "";
                 for (let i = 0; i < data.length; i++){
                     html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
@@ -120,5 +111,4 @@
     });
 </script>
 </body>
-
 </html>

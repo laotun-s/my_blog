@@ -14,12 +14,8 @@ public class BlogContentServiceImpl implements BlogContentService{
         this.blogContentMapper = blogContentMapper;
     }
 
-    public ArrayList<BlogContent> showContent() {
-        return blogContentMapper.showContent();
-    }
-
-    public ArrayList<BlogContent> showContent(int id){
-        return blogContentMapper.showContent(id);
+    public ArrayList<BlogContent> showContent(Map<String, Object> map) {
+        return blogContentMapper.showContent(map);
     }
 
     public int saveContent(Map<String, Object> map) {

@@ -28,7 +28,7 @@ public class BlogContenController {
     @PostMapping("/content")
     public String showContent(){
 
-        ArrayList<BlogContent> contents = blogContentService.showContent();
+        ArrayList<BlogContent> contents = blogContentService.showContent(null);
 
         for (BlogContent content : contents) {
             content.setPostContent(null);
@@ -70,7 +70,7 @@ public class BlogContenController {
         blogContentService.saveContent(map);
 
         Object id = map.get("id");
-        url = "http://" + url + "/content.html/?id=" + id;
+        url = "http://" + url + "/content.html?id=" + id;
         map.clear();
         map.put("guid", url);
         map.put("id", id);
@@ -86,8 +86,29 @@ public class BlogContenController {
      */
     @PostMapping("/p/{id}")
     public String content(@PathVariable("id") int id){
-        ArrayList<BlogContent> blogContents = blogContentService.showContent(id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+        ArrayList<BlogContent> blogContents = blogContentService.showContent(map);
 
         return JsonUtils.getJson(blogContents.get(0));
+    }
+
+    @PostMapping("/content/{page}")
+    public String showContentPage(@PathVariable("page") String page){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("page", page);
+
+        ArrayList<BlogContent> blogContents = blogContentService.showContent(map);
+
+        for (BlogContent content : blogContents) {
+            content.setPostContent(null);
+            if (content.getPostContentFiltered().length() > 50){
+                content.setPostContentFiltered(content.getPostContentFiltered().substring(0, 50));
+            }else {
+                content.setPostContentFiltered(content.getPostContentFiltered().substring(0, content.getPostContentFiltered().length()-1));
+            }
+        }
+
+        return JsonUtils.getJson(blogContents);
     }
 }

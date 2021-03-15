@@ -32,9 +32,13 @@
         where id=#{id}
     </update>
 
-    <select id="showContent" resultMap="BlogContentResult">
+    <select id="showContent" parameterType="map" resultMap="BlogContentResult">
         select * from blog_content
-        <if test="id != null">where id=#{id}</if>
+        <where>
+            <if test="id != null">id=#{id}</if>
+            <if test="page != null">post_classify=#{page}</if>
+        </where>
+
     </select>
 
 </mapper>
