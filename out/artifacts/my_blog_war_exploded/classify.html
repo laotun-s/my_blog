@@ -41,11 +41,13 @@
 </div>
 <div class="index-content">
     <div class="index-content-erea">
+        <div class="content-title"></div>
         <h1 class="index-content-style-head">Essay</h1>
         <ul id="index-Article">
 
         </ul>
     </div>
+    <div style="height: 200px;"></div>
 </div>
 
 <script>
@@ -96,7 +98,7 @@
             success:function (data) {
                 document.title = page + '  | 老吞';
                 let title = '<br><br><h1>' + page + ' 归档 | 老吞</h1>';
-                $('.title').append(title);
+                $('.content-title').append(title);
                 let html = "";
                 for (let i = 0; i < data.length; i++){
                     html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
