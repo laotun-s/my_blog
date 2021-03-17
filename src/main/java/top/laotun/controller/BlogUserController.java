@@ -23,16 +23,16 @@ public class BlogUserController {
 
     /**
      * 登陆处理
-     * @param login
-     * @param pwd
+     * @param username
+     * @param password
      * @param response
      * @return
      */
     @PostMapping("/login")
-    public String login(@Param("login") String login, @Param("pwd") String pwd, HttpServletResponse response){
+    public String login(@Param("username") String username, @Param("password") String password, @Param("captcha") String captcha, HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("login", login);
-        map.put("pwd", pwd);
+        map.put("login", username);
+        map.put("pwd", password);
         BlogUser user = blogUserService.login(map);
 
         if (user.toString() != null){

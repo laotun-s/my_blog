@@ -22,3 +22,8 @@
     margin-top: 30px;
     height: 550px;
 }
+
+.message {
+    height: 200px;
+    clear:both
+}

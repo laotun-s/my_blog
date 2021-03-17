@@ -212,7 +212,3 @@ body::-webkit-scrollbar-track {
 .index-content-background img:hover {
     transform: scale(1.1);
 }
-
-.content-title {
-    margin-left: 400px;
-}

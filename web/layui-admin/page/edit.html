@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Markdown</title>
+
+    <link href="../../layui/css/layui.css" rel="stylesheet">
+    <link href="../../css/editormd.css" rel="stylesheet">
+    <link href="../../editormd/css/editormd.min.css" rel="stylesheet">
+    <script src="../../layui/layui.js" type="text/javascript"></script>
+    <script src="../../js/jquery.js" type="text/javascript"></script>
+    <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../../editormd/editormd.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+<div class="edit-content">
+    <div class="post-content">
+        <div>
+            <div class="page-header">
+                <h1><label>撰写新文章</label></h1>
+                <div>
+                    <input type="text" id="title" required lay-verify="required" placeholder="添加标题" autocomplete="off" class="layui-input title">
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- md文件编辑器编辑区域 后续js中会使用到 -->
+                    <div id="blog_mdedit"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="postbox-container">
+        <div class="post-content-publish">
+            <button class="btn-blog-save layui-btn layui-btn-normal" lay-submit lay-filter="postContent">发布内容</button>
+        </div>
+    </div>
+
+    <div style="height: 50px; clear:both;"></div>
+    <div class="message"></div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    layui.use('form', function(){
+        let form = layui.form;
+        form.on('submit(postContent)', function(data){
+            if (!$('#title').val()) {
+                layer.msg("请输入标题",{icon: 2,});
+            } else {
+                layer.load(2, {time: 20*1000});
+                $.ajax({
+                    url:"/editormd",
+                    type:"POST",
+                    xhrFields: {
+                        withCredentials: true,
+                    },
+                    dataType:"json",
+                    data:{
+                        "url": location.host,
+                        "postContent": editor.getHTML(),
+                        "postContentFiltered": editor.getMarkdown(),
+                        "postTitle": $('#title').val()
+                    },
+                    success:function (result) {
+                        if(result != null)
+                        window.location.href = "/index.html";
+                    },
+                    error:function () {
+                        layer.load(2, {time: 10});
+                        layer.msg("error",{icon: 2,});
+                    }
+                });
+            }
+        });
+        let editor = editormd("blog_mdedit", {
+            placeholder : '欢迎使用laotun博客',
+            height: 580,
+            syncScrolling : "single",
+            emoji : true,
+            saveHTMLToTextarea : true,
+            tocm : true, // Using [TOCM]
+            tex : true, // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true, // 开启流程图支持，默认关闭
+            imageUpload : true,
+            imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
+            imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
+            path   : "../../editormd/lib/"
+        });
+    });
+</script>
+</body>
+</html>
