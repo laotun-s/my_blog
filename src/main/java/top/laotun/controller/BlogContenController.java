@@ -52,7 +52,7 @@ public class BlogContenController {
      * @return
      */
     @PostMapping("/editormd")
-    public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url){
+    public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url, @Param("classify") String classify){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("postContent", postContent);
         map.put("postContentFiltered", postContentFiltered);
@@ -63,7 +63,7 @@ public class BlogContenController {
             e.printStackTrace();
         }
         map.put("postAuthor", 1);
-        map.put("postClassify", "test");
+        map.put("postClassify", classify);
 
         map.put("guid", url);
 

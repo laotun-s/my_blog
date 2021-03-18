@@ -8,11 +8,6 @@
     <link href="../../layui/css/layui.css" rel="stylesheet">
     <link href="../../css/editormd.css" rel="stylesheet">
     <link href="../../editormd/css/editormd.min.css" rel="stylesheet">
-    <script src="../../layui/layui.js" type="text/javascript"></script>
-    <script src="../../js/jquery.js" type="text/javascript"></script>
-    <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="../../editormd/editormd.js" type="text/javascript"></script>
-
 
 </head>
 <body>
@@ -37,6 +32,21 @@
     <div class="postbox-container">
         <div class="post-content-publish">
             <button class="btn-blog-save layui-btn layui-btn-normal" lay-submit lay-filter="postContent">发布内容</button>
+            <div class="layui-form">
+                <h3>文章分类</h3>
+                <div>
+                    <input type="radio" name="classify" value="Linux" title="Linux">
+                </div>
+                <div>
+                    <input type="radio" name="classify" value="CTF" title="CTF">
+                </div>
+                <div>
+                    <input type="radio" name="classify" value="笔记" title="笔记">
+                </div>
+                <div>
+                    <input type="radio" name="classify" value="刷题" title="刷题">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -45,16 +55,21 @@
 </div>
 
 
-
+<script src="../../layui/layui.js" type="text/javascript"></script>
+<script src="../../js/jquery.js" type="text/javascript"></script>
+<script src="../../js/jquery.cookie.js" type="text/javascript"></script>
+<script src="../../editormd/editormd.js" type="text/javascript"></script>
+<script src="../js/logining.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     layui.use('form', function(){
-        let form = layui.form;
+        var form = layui.form;
+
         form.on('submit(postContent)', function(data){
             if (!$('#title').val()) {
                 layer.msg("请输入标题",{icon: 2,});
             } else {
-                layer.load(2, {time: 20*1000});
+                layer.load(2, {time: 20*100});
                 $.ajax({
                     url:"/editormd",
                     type:"POST",
@@ -66,11 +81,13 @@
                         "url": location.host,
                         "postContent": editor.getHTML(),
                         "postContentFiltered": editor.getMarkdown(),
-                        "postTitle": $('#title').val()
+                        "postTitle": $('#title').val(),
+                        "classify": $('.layui-form-radioed').prev().val()
                     },
                     success:function (result) {
-                        if(result != null)
-                        window.location.href = "/index.html";
+                        layer.msg('发布成功', function () {
+
+                        });
                     },
                     error:function () {
                         layer.load(2, {time: 10});
@@ -93,6 +110,7 @@
             imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
             path   : "../../editormd/lib/"
         });
+
     });
 </script>
 </body>

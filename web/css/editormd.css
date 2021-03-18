@@ -25,5 +25,19 @@
 
 .message {
     height: 200px;
-    clear:both
+    clear: both;
+}
+
+.layui-form {
+    height: 200px;
+    width: 150px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0);
+    box-shadow: 0 1px 15px -8px;
+}
+
+.layui-form > div {
+    display: block;
+    height: 40px;
 }
