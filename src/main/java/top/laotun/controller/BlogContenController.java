@@ -93,6 +93,11 @@ public class BlogContenController {
         return JsonUtils.getJson(blogContents.get(0));
     }
 
+    /**
+     * 分类查看文章
+     * @param page
+     * @return
+     */
     @PostMapping("/content/{page}")
     public String showContentPage(@PathVariable("page") String page){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -110,5 +115,14 @@ public class BlogContenController {
         }
 
         return JsonUtils.getJson(blogContents);
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editContent(@PathVariable("id") int id){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+        ArrayList<BlogContent> blogContents = blogContentService.showContent(map);
+
+        return JsonUtils.getJson(blogContents.get(0));
     }
 }

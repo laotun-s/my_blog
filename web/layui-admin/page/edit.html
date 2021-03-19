@@ -46,7 +46,7 @@
                     <input type="radio" name="classify" value="笔记" title="笔记">
                 </div>
                 <div>
-                    <input type="radio" name="classify" value="刷题" title="刷题">
+                    <input type="radio" name="classify" id="刷题" value="刷题" title="刷题">
                 </div>
             </div>
         </div>
@@ -66,6 +66,49 @@
 <script type="text/javascript">
     layui.use('form', function(){
         var form = layui.form;
+
+        function getQueryVariable(variable)
+        {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            if (vars.length > 1)
+                return false;
+            let pair = vars[0].split("=");
+            if(pair[0] == variable)
+                return pair[1];
+            return false;
+        }
+
+        let id = getQueryVariable("id");
+        $.ajax({
+            url:"/edit/" + id,
+            type:"POST",
+            dataType:"json",
+            xhrFields: {
+                withCredentials: true,
+            },
+            success:function (data) {
+                document.getElementById('content').value = data.postContentFiltered;
+                document.getElementById('title').value = data.postTitle;
+                $("input[name=classify][value=" + data.postClassify + "]").attr("checked", "checked");
+                form.render('radio');
+            }
+        });
+
+        let editor = editormd("blog_mdedit", {
+            placeholder : '欢迎使用laotun博客',
+            height: 580,
+            syncScrolling : "single",
+            emoji : true,
+            saveHTMLToTextarea : true,
+            tocm : true, // Using [TOCM]
+            tex : true, // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true, // 开启流程图支持，默认关闭
+            imageUpload : true,
+            imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
+            imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
+            path   : "../../editormd/lib/"
+        });
 
         form.on('submit(postContent)', function(data){
             if (!$('#title').val()) {
@@ -98,48 +141,6 @@
                 });
             }
         });
-        let editor = editormd("blog_mdedit", {
-            placeholder : '欢迎使用laotun博客',
-            height: 580,
-            syncScrolling : "single",
-            emoji : true,
-            saveHTMLToTextarea : true,
-            tocm : true, // Using [TOCM]
-            tex : true, // 开启科学公式TeX语言支持，默认关闭
-            flowChart : true, // 开启流程图支持，默认关闭
-            imageUpload : true,
-            imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
-            imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
-            path   : "../../editormd/lib/"
-        });
-
-        function getQueryVariable(variable)
-        {
-            let query = window.location.search.substring(1);
-            let vars = query.split("&");
-            if (vars.length > 1)
-                return false;
-            let pair = vars[0].split("=");
-            if(pair[0] == variable)
-                return pair[1];
-            return false;
-        }
-
-        document.getElementById('content').value = "# ckw是小菜鸡儿";
-        document.getElementById('title').value = "test";
-        let id = getQueryVariable("id");
-        $.ajax({
-            url:"/edit/" + id,
-            type:"POST",
-            dataType:"json",
-            xhrFields: {
-                withCredentials: true,
-            },
-            success:function (data) {
-
-            }
-        });
-
     });
 </script>
 </body>
