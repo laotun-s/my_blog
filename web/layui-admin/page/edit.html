@@ -23,7 +23,9 @@
             <div class="panel-body">
                 <div class="row">
                     <!-- md文件编辑器编辑区域 后续js中会使用到 -->
-                    <div id="blog_mdedit"></div>
+                    <div id="blog_mdedit">
+                        <textarea style="display:none;" id="content"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,7 +61,7 @@
 <script src="../../js/jquery.js" type="text/javascript"></script>
 <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
 <script src="../../editormd/editormd.js" type="text/javascript"></script>
-<script src="../js/logining.js" type="text/javascript"></script>
+<!--<script src="../js/logining.js" type="text/javascript"></script>-->
 
 <script type="text/javascript">
     layui.use('form', function(){
@@ -109,6 +111,33 @@
             imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
             imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
             path   : "../../editormd/lib/"
+        });
+
+        function getQueryVariable(variable)
+        {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            if (vars.length > 1)
+                return false;
+            let pair = vars[0].split("=");
+            if(pair[0] == variable)
+                return pair[1];
+            return false;
+        }
+
+        document.getElementById('content').value = "# ckw是小菜鸡儿";
+        document.getElementById('title').value = "test";
+        let id = getQueryVariable("id");
+        $.ajax({
+            url:"/edit/" + id,
+            type:"POST",
+            dataType:"json",
+            xhrFields: {
+                withCredentials: true,
+            },
+            success:function (data) {
+
+            }
         });
 
     });
