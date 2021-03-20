@@ -1,6 +1,7 @@
 package top.laotun.controller;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -117,6 +118,11 @@ public class BlogContenController {
         return JsonUtils.getJson(blogContents);
     }
 
+    /**
+     * 修改文章
+     * @param id
+     * @return
+     */
     @PostMapping("/edit/{id}")
     public String editContent(@PathVariable("id") int id){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -124,5 +130,22 @@ public class BlogContenController {
         ArrayList<BlogContent> blogContents = blogContentService.showContent(map);
 
         return JsonUtils.getJson(blogContents.get(0));
+    }
+
+    /**
+     * 删除文章
+     * @param id
+     * @return
+     */
+    @PostMapping("/deleteContent/{id}")
+    public String deleteContent(@PathVariable("id") int id){
+
+        int i = blogContentService.deleteContent(id);
+        if (i == 1){
+            System.out.println("删除成功");
+            return JsonUtils.getJson("ok");
+        }
+
+        return null;
     }
 }

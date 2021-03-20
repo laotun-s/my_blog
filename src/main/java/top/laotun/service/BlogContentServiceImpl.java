@@ -26,4 +26,8 @@ public class BlogContentServiceImpl implements BlogContentService{
         return blogContentMapper.updateContent(map);
     }
 
+    public int deleteContent(int id) {
+        return blogContentMapper.deleteContent(id);
+    }
+
 }

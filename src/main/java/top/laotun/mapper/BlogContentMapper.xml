@@ -31,6 +31,9 @@
         </set>
         where id=#{id}
     </update>
+    <delete id="deleteContent">
+        delete from blog_content where id = #{id}
+    </delete>
 
     <select id="showContent" parameterType="map" resultMap="BlogContentResult">
         select * from blog_content
