@@ -1,3 +1,4 @@
+//检测没有登录就跳转到登录界面
 $(function () {
     if (!$.cookie("user_key")){
 
