@@ -22,7 +22,7 @@
           "target": "_self"
         },
         {
-          "title": "文章列表（待开发）",
+          "title": "文章列表",
           "href": "page/table.html",
           "icon": "fa fa-file-text",
           "target": "_self"
