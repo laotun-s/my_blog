@@ -19,14 +19,10 @@
 
 # 预览
 ### 主页
-
-![index-demo](/Users/laotun/laotun/代码/java/my_blog/web/icon/index-demo.png)
-
-
+![index-demo](web/icon/index-demo.png)
 
 ### 分类显示
-
-![classify-demo](/Users/laotun/laotun/代码/java/my_blog/web/icon/classify-demo.png)
+![classify-demo](web/icon/classify-demo.png)
 
 ### 后台
-
+![classify-demo](web/icon/back-index.png)
