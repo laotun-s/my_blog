@@ -49,8 +49,8 @@
                                 <span class="label pull-right layui-bg-orange">实时</span>
                                 <h5>文章浏览</h5>
                             </div>
-                            <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
+                            <div class="panel-content click-count">
+                                <!--<h1 class="no-margins">1234</h1>-->
                                 <small>当前分类总记录数</small>
                             </div>
                         </div>
@@ -65,8 +65,8 @@
                                 <span class="label pull-right layui-bg-green">实时</span>
                                 <h5>文章总数</h5>
                             </div>
-                            <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
+                            <div class="panel-content content-count">
+                                <!--<h1 class="no-margins">1234</h1>-->
                                 <small>当前分类总记录数</small>
                             </div>
                         </div>
@@ -94,11 +94,11 @@
                 </blockquote>
                 <table class="layui-table" lay-skin="line" style="margin: 0;">
                     <colgroup>
-                        <col width="500">
+                        <col>
                         <col>
                     </colgroup>
                     <tbody class="layui-quote-nm">
-                    <tr>
+                    <!--<tr>
                         <td>人生就像是一场修行</td>
                         <td>2021****</td>
                     </tr>
@@ -125,7 +125,7 @@
                     <tr>
                         <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
                         <td>2016-11-28</td>
-                    </tr>
+                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -140,6 +140,29 @@
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../../js/jquery.js" type="text/javascript"></script>
 <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
-<!--<script src="../js/logining.js" type="text/javascript"></script>-->
+<script src="../js/logining.js" type="text/javascript"></script>
+<script>
+    $.ajax({
+        url:"/content",
+        type:"POST",
+        dataType:"json",
+        xhrFields: {
+            withCredentials: true,
+        },
+        success:function (data) {
+            let html = "";
+            for (let i = 0; i < 6; i++){
+                html += '<tr><td>' + data[i].postTitle + '</td><td>' + data[i].postDate + '</td></tr>';
+            }
+            $('.layui-quote-nm').append(html);
+            let click = 0;
+            for (let i = 0; i < data.length; i++){
+                click += data[i].postClick;
+            }
+            $('.click-count').append('<h1 class="no-margins">' + click + '</h1>');
+            $('.content-count').append('<h1 class="no-margins">' + data.length + '</h1>');
+        }
+    });
+</script>
 </body>
 </html>
