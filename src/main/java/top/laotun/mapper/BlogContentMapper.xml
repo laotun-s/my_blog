@@ -4,8 +4,8 @@
 
     <!--用户信息-->
     <resultMap id="BlogContentResult" type="BlogContent">
-        <result column="post_author" property="postAuthor"/>
         <result column="post_date" property="postDate"/>
+        <result column="post_author" property="postAuthor"/>
         <result column="post_modified" property="postModified"/>
         <result column="post_content" property="postContent"/>
         <result column="post_content_filtered" property="postContentFiltered"/>
@@ -27,7 +27,9 @@
             <if test="postName != null">post_name=#{postName},</if>
             <if test="guid != null">guid=#{guid},</if>
             <if test="postClassify != null">post_classify=#{postClassify},</if>
-            post_modified=now()
+            <if test="click != null">post_click=#{click}</if>
+            <if test="click == null">post_modified=now()</if>
+
         </set>
         where id=#{id}
     </update>
@@ -36,10 +38,12 @@
     </delete>
 
     <select id="showContent" parameterType="map" resultMap="BlogContentResult">
-        select * from blog_content
+        select a.id, b.user_name postAuthor, a.post_classify, a.post_content, a.post_content_filtered, a.post_date, a.post_modified, a.post_name, a.post_title, a.guid, a.post_click
+        from blog_content as a left join blog_user as b
+        on a.post_author = b.user_id
         <where>
-            <if test="id != null">id=#{id}</if>
-            <if test="page != null">post_classify=#{page}</if>
+            <if test="id != null">a.id=#{id}</if>
+            <if test="page != null">a.post_classify=#{page}</if>
         </where>
 
     </select>

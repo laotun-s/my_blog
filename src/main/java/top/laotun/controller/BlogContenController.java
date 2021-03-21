@@ -1,7 +1,6 @@
 package top.laotun.controller;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +52,7 @@ public class BlogContenController {
      * @return
      */
     @PostMapping("/editormd")
-    public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url, @Param("classify") String classify){
+    public String saveEditor(HttpServletRequest request, @Param("postContent") String postContent, @Param("postContentFiltered") String postContentFiltered, @Param("postTitle") String postTitle, @Param("url") String url, @Param("classify") String classify, @Param("id") Integer id){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("postContent", postContent);
         map.put("postContentFiltered", postContentFiltered);
@@ -65,17 +64,18 @@ public class BlogContenController {
         }
         map.put("postAuthor", 1);
         map.put("postClassify", classify);
-
         map.put("guid", url);
 
-        blogContentService.saveContent(map);
-
-        Object id = map.get("id");
-        url = "http://" + url + "/content.html?id=" + id;
-        map.clear();
-        map.put("guid", url);
-        map.put("id", id);
-        blogContentService.updateContent(map);
+        if (id == -1){
+            blogContentService.saveContent(map);
+            Object i = map.get("id");
+            url = "http://" + url + "/content.html?id=" + i;
+            map.clear();
+            map.put("guid", url);
+            map.put("id", i);
+            blogContentService.updateContent(map);
+        }
+        else blogContentService.updateContent(map);
 
         return JsonUtils.getJson("ok");
     }
@@ -90,6 +90,10 @@ public class BlogContenController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", id);
         ArrayList<BlogContent> blogContents = blogContentService.showContent(map);
+
+        //访问一次增加一个点击量
+        map.put("click", blogContents.get(0).getPostClick() + 1);
+        blogContentService.updateContent(map);
 
         return JsonUtils.getJson(blogContents.get(0));
     }
@@ -119,7 +123,7 @@ public class BlogContenController {
     }
 
     /**
-     * 修改文章
+     * 修改文章页面返回数据
      * @param id
      * @return
      */
@@ -147,5 +151,23 @@ public class BlogContenController {
         }
 
         return null;
+    }
+
+    /**
+     * 编辑页面获取文章列表
+     * @return
+     */
+    @GetMapping("/editShowContent")
+    public String editShowContent(@Param("page") Integer page, @Param("limit") Integer limit){
+        ArrayList<BlogContent> contents = blogContentService.showContent(null);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", 0);
+        map.put("msg", "");
+        map.put("count", contents.size());
+
+        if (limit+((page-1)*limit) > contents.size()) map.put("data", contents.subList((page-1)*limit, contents.size()));
+        else map.put("data", contents.subList((page-1)*limit, limit+((page-1)*limit)));
+
+        return JsonUtils.getJson(map);
     }
 }

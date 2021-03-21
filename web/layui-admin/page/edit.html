@@ -67,23 +67,23 @@
     layui.use('form', function(){
         var form = layui.form;
 
-        function edit(){
-            let editor = editormd("blog_mdedit", {
-                placeholder : '欢迎使用laotun博客',
-                height: 580,
-                syncScrolling : "single",
-                emoji : true,
-                saveHTMLToTextarea : true,
-                tocm : true, // Using [TOCM]
-                tex : true, // 开启科学公式TeX语言支持，默认关闭
-                flowChart : true, // 开启流程图支持，默认关闭
-                imageUpload : true,
-                imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
-                imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
-                path   : "../../editormd/lib/"
-            });
-        }
-        edit();
+        let edit = {
+            placeholder : '欢迎使用laotun博客',
+            height: 580,
+            syncScrolling : "single",
+            emoji : true,
+            saveHTMLToTextarea : true,
+            tocm : true, // Using [TOCM]
+            tex : true, // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true, // 开启流程图支持，默认关闭
+            imageUpload : true,
+            imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
+            imageUploadURL : "../../icon/upFile", //注意你后端的上传图片服务地址
+            path   : "../../editormd/lib/"
+        };
+
+
+        let editor = editormd("blog_mdedit", edit);
 
         function getQueryVariable(variable)
         {
@@ -98,29 +98,32 @@
         }
 
         let id = getQueryVariable("id");
-        $.ajax({
-            url:"/edit/" + id,
-            type:"POST",
-            dataType:"json",
-            xhrFields: {
-                withCredentials: true,
-            },
-            success:function (data) {
-                document.getElementById('content').value = data.postContentFiltered;
-                edit();
-                document.getElementById('title').value = data.postTitle;
-                $("input[name=classify][value=" + data.postClassify + "]").attr("checked", "checked");
-                form.render('radio');
-            }
-        });
-
-
+        if(id) {
+            $.ajax({
+                url:"/edit/" + id,
+                type:"POST",
+                dataType:"json",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                success:function (data) {
+                    document.getElementById('content').value = data.postContentFiltered;
+                    editormd("blog_mdedit", edit);
+                    document.getElementById('title').value = data.postTitle;
+                    $("input[name=classify][value=" + data.postClassify + "]").attr("checked", "checked");
+                    form.render('radio');
+                }
+            });
+        }
 
         form.on('submit(postContent)', function(data){
+            if(!id) id = -1;
             if (!$('#title').val()) {
-                layer.msg("请输入标题",{icon: 2,});
+                layer.msg("请输入标题", function(){});
+            } else if (!$('.layui-form-radioed').prev().val()){
+                layer.msg("请选择文章分类",function(){});
             } else {
-                layer.load(2, {time: 20*100});
+                layer.load(2, {time: 100});
                 $.ajax({
                     url:"/editormd",
                     type:"POST",
@@ -133,12 +136,12 @@
                         "postContent": editor.getHTML(),
                         "postContentFiltered": editor.getMarkdown(),
                         "postTitle": $('#title').val(),
-                        "classify": $('.layui-form-radioed').prev().val()
+                        "classify": $('.layui-form-radioed').prev().val(),
+                        "id": id
                     },
                     success:function (result) {
-                        layer.msg('发布成功', function () {
-
-                        });
+                        layer.msg('发布成功', function(){});
+                        window.location = '/layui-admin';
                     },
                     error:function () {
                         layer.load(2, {time: 10});

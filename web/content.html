@@ -110,8 +110,8 @@
                     }
                     let html = '<div class="layui-container"><div class="layui-row"><div class="layui-col-md8 layui-col-md-offset2 content-div">' +
                         '<div class="title"><h1>' + data.postClassify + ' | 老吞</h1></div><br><br><br><div id="time" style="color: #989898; display: inline-block">' +
-                        '<i class="layui-icon">&#xe68d;&thinsp;</i>发布于' + data.postDate + '</div><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use>' +
-                        '</svg><span class="layui-icon" style="color: #989898;">' + data.postClick + '</span><div id="content">' + data.postContent + '</div><br><br><br></div>';
+                        '<i class="layui-icon">&#xe68d;&thinsp;</i>发布于' + data.postDate + '</div>&thinsp;&thinsp;<svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use>' +
+                        '</svg><span class="layui-icon" style="color: #989898;">&thinsp;' + data.postClick + '</span><div id="content">' + data.postContent + '</div><br><br><br></div>';
                     $('.body').append(html);
                     hljs.highlightAll();
                 }

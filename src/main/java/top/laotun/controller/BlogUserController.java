@@ -38,7 +38,7 @@ public class BlogUserController {
         if (user.toString() != null){
             Cookie cookie = new Cookie("user_key",user.getUserName() + "-" + "key");
             cookie.setPath("/");
-            cookie.setMaxAge(60*2);
+            cookie.setMaxAge(60*60);
             response.addCookie(cookie);
 
             return JsonUtils.getJson("ok");

@@ -1,15 +1,15 @@
 {
   "code": 0,
   "msg": "",
-  "count": 1000,
+  "count": 100,
   "data": [
     {
       "id": 20,
-      "title": "ckw",
-      "author": "laotun",
-      "classify": "菜鸡儿",
-      "click": "1000000",
-      "date": "2021-03-19"
+      "postTitle": "ckw",
+      "postAuthor": "laotun",
+      "postClassify": "菜鸡儿",
+      "postClick": "1000000",
+      "postDate": "2021-03-19"
     }
   ]
 }

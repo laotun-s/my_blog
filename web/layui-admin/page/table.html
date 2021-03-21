@@ -60,7 +60,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '../api/table.json',
+            url: '/editShowContent',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -70,11 +70,11 @@
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'title', width: 400, title: '标题'},
-                {field: 'author', width: 200, title: '作者'},
-                {field: 'classify', width: 200, title: '分类目录', sort: true},
-                {field: 'click', width: 150, title: '热度'},
-                {field: 'date', width: 200, title: '发布时间'},
+                {field: 'postTitle', width: 350, title: '标题'},
+                {field: 'postAuthor', width: 200, title: '作者'},
+                {field: 'postClassify', width: 200, title: '分类目录', sort: true},
+                {field: 'postClick', width: 100, title: '热度'},
+                {field: 'postDate', width: 200, title: '发布时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
