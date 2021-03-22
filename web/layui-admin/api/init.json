@@ -32,12 +32,6 @@
           "href": "page/login.html",
           "icon": "fa fa-viacoin",
           "target": "_blank"
-        },
-        {
-          "title": "404页面",
-          "href": "page/404.html",
-          "icon": "fa fa-hourglass-end",
-          "target": "_self"
         }
       ]
     }

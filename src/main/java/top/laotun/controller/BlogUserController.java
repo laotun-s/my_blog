@@ -3,6 +3,7 @@ package top.laotun.controller;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.laotun.Utils.JsonUtils;
@@ -46,5 +47,13 @@ public class BlogUserController {
         return null;
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("user_key","");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
 
+        return JsonUtils.getJson("ok");
+    }
 }
