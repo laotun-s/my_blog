@@ -212,3 +212,12 @@ body::-webkit-scrollbar-track {
 .index-content-background img:hover {
     transform: scale(1.1);
 }
+
+.load-more {
+    height: 50px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    background-color: #fcf9f9;
+    box-shadow: 0 1px 20px -8px;
+    border-radius: 30px;
+}

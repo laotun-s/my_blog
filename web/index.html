@@ -7,12 +7,7 @@
 
     <link href="layui/css/layui.css" rel="stylesheet">
     <link href="css/home.css" rel="stylesheet">
-    <script src="layui/layui.js" type="text/javascript"></script>
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="js/iconfont.js" type="text/javascript"></script>
-    <script src="js/personal.js" type="text/javascript"></script>
-    
+
 </head>
 <body>
 <div class="nav">
@@ -89,16 +84,32 @@
                 <a href="#"><img src="icon/web.jpg"></a>
             </div>
         </div>-->
-        <div style="height: 200px;"></div>
+        <div class="layui-container" >
+            <div class="layui-row">
+                <div class="layui-col-md2 layui-col-md-offset5 box-load-more">
+                    <a href="javascript:;" id="load">
+                        <div class="layui-col-md8 layui-col-md-offset2 load-more">
+                            <h2 style="margin-top: 12px; margin-left: 12px;">Load more</h2>
+                        </div>
+                    </a>
+                    <!--<h3 style="margin-bottom: 20px; color: #7e7f7c">没有更多文章了</h3>-->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<script src="layui/layui.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/iconfont.js" type="text/javascript"></script>
+<script src="js/personal.js" type="text/javascript"></script>
 
 <script>
-    layui.use('element', function(){
-        let element = layui.element;
-
-        $.ajax({
+layui.use('element', function(){
+    let element = layui.element;
+    let data_post;
+    $.ajax({
             url:"/content",
             type:"POST",
             dataType:"json",
@@ -107,16 +118,59 @@
             },
             success:function (data) {
                 let html = "";
-                for (let i = 0; i < data.length; i++){
-                    html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
-                        data[i].postDate + '</i></div><h2><a href="' + data[i].guid + '">' + data[i].postTitle + '</a></h2><i class="layui-icon">&#xe66f;laotun</i><i class="layui-icon">&thinsp;&#xe715;<a href='
-                        + data[i].postClassify + '"/">&thinsp;' + data[i].postClassify + '&thinsp;</a></i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use></svg><span class="layui-icon">&thinsp;' + data[i].postClick +
-                        '</span><div class="index-content-summary"><span>' + data[i].postContentFiltered + '...</span><div class="index-content-more"><a href="' + data[i].guid + '"><i class="layui-icon" style="font-size: 30px">&#xe65f;</i></a></div></div></div></div><div class="index-content-background"><a href="' +
-                        data[i].guid + '"><img src="icon/web.jpg"></a></div></div>';
+                data_post = data;
+                if (data.length > 5) {
+                    for (let i = 0; i < 5; i++){
+                        html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
+                            data[i].postDate + '</i></div><h2><a href="' + data[i].guid + '">' + data[i].postTitle + '</a></h2><i class="layui-icon">&#xe66f;laotun</i><i class="layui-icon">&thinsp;&#xe715;<a href='
+                            + data[i].postClassify + '"/">&thinsp;' + data[i].postClassify + '&thinsp;</a></i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use></svg><span class="layui-icon">&thinsp;' + data[i].postClick +
+                            '</span><div class="index-content-summary"><span>' + data[i].postContentFiltered + '...</span><div class="index-content-more"><a href="' + data[i].guid + '"><i class="layui-icon" style="font-size: 30px">&#xe65f;</i></a></div></div></div></div><div class="index-content-background"><a href="' +
+                            data[i].guid + '"><img src="icon/web.jpg"></a></div></div>';
+                    }
+                    $('#index-Article').append(html);
+                } else {
+                    for (let i = 0; i < data.length; i++){
+                        html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
+                            data[i].postDate + '</i></div><h2><a href="' + data[i].guid + '">' + data[i].postTitle + '</a></h2><i class="layui-icon">&#xe66f;laotun</i><i class="layui-icon">&thinsp;&#xe715;<a href='
+                            + data[i].postClassify + '"/">&thinsp;' + data[i].postClassify + '&thinsp;</a></i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use></svg><span class="layui-icon">&thinsp;' + data[i].postClick +
+                            '</span><div class="index-content-summary"><span>' + data[i].postContentFiltered + '...</span><div class="index-content-more"><a href="' + data[i].guid + '"><i class="layui-icon" style="font-size: 30px">&#xe65f;</i></a></div></div></div></div><div class="index-content-background"><a href="' +
+                            data[i].guid + '"><img src="icon/web.jpg"></a></div></div>';
+                    }
+                    $('#index-Article').append(html);
                 }
-                $('#index-Article').append(html);
             }
         });
+
+        let num = 5;
+        $('#load').on("click", function () {
+            console.log('num: ' + num);
+            console.log('data: ' + data_post.length);
+            let html = "";
+            if (data_post.length > num+5){
+                for (let i = num; i < num + 5; i++){
+                    html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
+                        data_post[i].postDate + '</i></div><h2><a href="' + data_post[i].guid + '">' + data_post[i].postTitle + '</a></h2><i class="layui-icon">&#xe66f;laotun</i><i class="layui-icon">&thinsp;&#xe715;<a href='
+                        + data_post[i].postClassify + '"/">&thinsp;' + data_post[i].postClassify + '&thinsp;</a></i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use></svg><span class="layui-icon">&thinsp;' + data_post[i].postClick +
+                        '</span><div class="index-content-summary"><span>' + data_post[i].postContentFiltered + '...</span><div class="index-content-more"><a href="' + data_post[i].guid + '"><i class="layui-icon" style="font-size: 30px">&#xe65f;</i></a></div></div></div></div><div class="index-content-background"><a href="' +
+                        data_post[i].guid + '"><img src="icon/web.jpg"></a></div></div>';
+                }
+                num += 5;
+                $('#index-Article').append(html);
+            } else {
+                for (let i = num; i < data_post.length; i++){
+                    html += '<div class="index-content-writings"><div class="index-essay"><div class="index-essay-writings"><div><i class="layui-icon">&#xe68d;发布于' +
+                        data_post[i].postDate + '</i></div><h2><a href="' + data_post[i].guid + '">' + data_post[i].postTitle + '</a></h2><i class="layui-icon">&#xe66f;laotun</i><i class="layui-icon">&thinsp;&#xe715;<a href='
+                        + data_post[i].postClassify + '"/">&thinsp;' + data_post[i].postClassify + '&thinsp;</a></i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-yanjing"></use></svg><span class="layui-icon">&thinsp;' + data_post[i].postClick +
+                        '</span><div class="index-content-summary"><span>' + data_post[i].postContentFiltered + '...</span><div class="index-content-more"><a href="' + data_post[i].guid + '"><i class="layui-icon" style="font-size: 30px">&#xe65f;</i></a></div></div></div></div><div class="index-content-background"><a href="' +
+                        data_post[i].guid + '"><img src="icon/web.jpg"></a></div></div>';
+                }
+                $('#index-Article').append(html);
+
+                this.remove();
+                $('.box-load-more').append('<h3 style="margin-bottom: 20px; color: #7e7f7c">没有更多文章了</h3>');
+            }
+        });
+
     });
 </script>
 </body>
