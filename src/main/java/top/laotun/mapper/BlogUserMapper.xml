@@ -11,6 +11,10 @@
         <result column="user_email" property="userEmail"/>
         <result column="user_icon" property="userIcon"/>
     </resultMap>
+    <update id="changePassword">
+        update blog_user set user_pwd = #{newpwd}
+        where user_pwd = #{pwd} and user_login = #{login}
+    </update>
 
     <select id="login" parameterType="map" resultMap="BlogUserResult">
         select * from blog_user where user_login = #{login} and user_pwd = #{pwd};

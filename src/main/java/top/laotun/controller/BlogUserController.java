@@ -30,7 +30,9 @@ public class BlogUserController {
      * @return
      */
     @PostMapping("/login")
-    public String login(@Param("username") String username, @Param("password") String password, @Param("captcha") String captcha, HttpServletResponse response){
+    public String login(@Param("username") String username,
+                        @Param("password") String password,
+                        HttpServletResponse response){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("login", username);
         map.put("pwd", password);
@@ -55,5 +57,20 @@ public class BlogUserController {
         response.addCookie(cookie);
 
         return JsonUtils.getJson("ok");
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(@Param("old_password") String old_password,
+                                 @Param("new_password") String new_password){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("login", "laotun");
+        map.put("pwd", old_password);
+        map.put("newpwd", new_password);
+        int i = blogUserService.changePassword(map);
+        if (i == 1){
+            return JsonUtils.getJson("ok");
+        }
+
+        return null;
     }
 }

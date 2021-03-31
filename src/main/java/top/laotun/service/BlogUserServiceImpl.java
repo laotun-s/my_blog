@@ -16,4 +16,8 @@ public class BlogUserServiceImpl implements BlogUserService{
     public BlogUser login(Map<String, Object> map) {
         return blogUserMapper.login(map);
     }
+
+    public int changePassword(Map<String, Object> map) {
+        return blogUserMapper.changePassword(map);
+    }
 }

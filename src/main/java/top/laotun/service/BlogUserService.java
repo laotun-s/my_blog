@@ -6,4 +6,5 @@ import java.util.Map;
 
 public interface BlogUserService {
     public BlogUser login(Map<String, Object> map);
+    public int changePassword(Map<String, Object> map);
 }
