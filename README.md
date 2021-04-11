@@ -19,10 +19,10 @@
 
 # 预览
 ### 主页
-![index-demo](web/icon/index-demo.png)
+![index-demo](src/main/webapp/icon/index-demo.png)
 
 ### 分类显示
-![classify-demo](web/icon/classify-demo.png)
+![classify-demo](src/main/webapp/icon/classify-demo.png)
 
 ### 后台
-![classify-demo](web/icon/back-index.png)
+![classify-demo](src/main/webapp/icon/back-index.png)
