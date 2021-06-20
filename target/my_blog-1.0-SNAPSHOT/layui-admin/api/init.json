@@ -1,0 +1,39 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome.html"
+  },
+  "logoInfo": {
+    "title": "laotun博客",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "博客后台",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "文本编辑",
+          "href": "page/edit.html",
+          "icon": "fa fa-edit",
+          "target": "_self"
+        },
+        {
+          "title": "文章列表",
+          "href": "page/table.html",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        },
+        {
+          "title": "登录",
+          "href": "page/login.html",
+          "icon": "fa fa-viacoin",
+          "target": "_blank"
+        }
+      ]
+    }
+  ]
+}
