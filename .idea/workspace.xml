@@ -28,7 +28,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="625e8e3d-b331-4a3f-9eb3-2ab957fc770d" name="Default Changelist" comment="_" />
+    <list default="true" id="625e8e3d-b331-4a3f-9eb3-2ab957fc770d" name="Default Changelist" comment="_">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/my_blog_Web_exploded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/my_blog_Web_exploded/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogContentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogContentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogContentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogContentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/laotun/mapper/BlogUserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/my_blog-1.0-SNAPSHOT/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/my_blog-1.0-SNAPSHOT/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +114,8 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.1507799" />
     <property name="project.structure.side.proportion" value="0.24856156" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -213,6 +222,17 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8.5.63">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="generated-requests#1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -468,6 +488,10 @@
       <workItem from="1620795989842" duration="504000" />
       <workItem from="1621426932350" duration="102000" />
       <workItem from="1622968828091" duration="23000" />
+      <workItem from="1624284010826" duration="644000" />
+      <workItem from="1624428836152" duration="755000" />
+      <workItem from="1625989500070" duration="243000" />
+      <workItem from="1625989874284" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1615163163343</created>

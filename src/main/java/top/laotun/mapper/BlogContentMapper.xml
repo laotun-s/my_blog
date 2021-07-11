@@ -15,8 +15,10 @@
         <result column="post_click" property="postClick"/>
     </resultMap>
     <insert id="saveContent" parameterType="map" useGeneratedKeys="true" keyProperty="id">
-        insert into blog_content(post_author, post_date, post_modified, post_content, post_content_filtered, post_title, post_name, guid,post_classify)
-        values(#{postAuthor}, now(), now(), #{postContent}, #{postContentFiltered}, #{postTitle}, #{postName}, #{guid}, #{postClassify})
+        insert into blog_content(post_author, post_date, post_modified, post_content, post_content_filtered, post_title,
+                                 post_name, guid, post_classify)
+        values (#{postAuthor}, now(), now(), #{postContent}, #{postContentFiltered}, #{postTitle}, #{postName}, #{guid},
+                #{postClassify})
     </insert>
     <update id="updateContent">
         update blog_content
@@ -34,11 +36,14 @@
         where id=#{id}
     </update>
     <delete id="deleteContent">
-        delete from blog_content where id = #{id}
+        delete
+        from blog_content
+        where id = #{id}
     </delete>
 
     <select id="showContent" parameterType="map" resultMap="BlogContentResult">
-        select a.id, b.user_name postAuthor, a.post_classify, a.post_content, a.post_content_filtered, a.post_date, a.post_modified, a.post_name, a.post_title, a.guid, a.post_click
+        select a.id, b.user_name postAuthor, a.post_classify, a.post_content, a.post_content_filtered, a.post_date,
+        a.post_modified, a.post_name, a.post_title, a.guid, a.post_click
         from blog_content as a left join blog_user as b
         on a.post_author = b.user_id
         <where>
